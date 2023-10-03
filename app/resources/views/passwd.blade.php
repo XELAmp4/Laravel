@@ -16,15 +16,15 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Bonjour</h1>
+        <h1>Nouveau mot de passe</h1>
         <form action="./PostController" method="post">
         @csrf
 
             <label for="url">Url du site:</label>
             <input type="url" name='url' class="@error('url') is-invalid @enderror" required>
 
-            <label for="email">Email:</label>
-            <input type="email" name='email' class="@error('email') is-invalid @enderror" required>
+            <label for="email">Login:</label>
+            <input type="text" name='email' class="@error('email') is-invalid @enderror" required>
 
             <label for="password">Mot de passe:</label>
             <input type="password" name='password' class="@error('password') is-invalid @enderror" required>
