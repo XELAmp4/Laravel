@@ -16,34 +16,23 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Nouveau mot de passe</h1>
-        <form action="./PostController" method="post">
+        <h1>Modifier le mot de passe</h1>
+
+        <form action="{{ route('ChangePassController', $idpass) }}" method="POST">
         @csrf
-
-            <label for="url">Url du site:</label>
-            <input type="url" name='url' class="@error('url') is-invalid @enderror" required>
-
-            <label for="email">Login:</label>
-            <input type="text" name='email' class="@error('email') is-invalid @enderror" required>
-
-            <label for="password">Mot de passe:</label>
+        @method('POST')
+            <label for="password">Nouveau mot de passe:</label>
             <input type="password" name='password' class="@error('password') is-invalid @enderror" required>
 
-            <input type="submit" value="Enregistrer le mot de passe" />
+            <input type="submit" value="Changer le mot de passe" />
         </form>
 
         @if ($errors->any())
-            @error('url')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            @error('email')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
             @error('password')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         @endif
-        
-        
+
+
     </body>
 </html>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
-class Teams extends Model
+class Team extends Model
 {
     use HasFactory;
 
@@ -15,4 +15,5 @@ class Teams extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    protected $fillable = ['name'];
 }

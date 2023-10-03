@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
  
 use App\Http\Controllers\Controller;
-use App\Models\Password;
+use App\Models\Team;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\User;
  
-class PostController extends Controller
+class TeamController extends Controller
 {
 
  
@@ -22,29 +23,23 @@ class PostController extends Controller
 public function store(Request $request): RedirectResponse
 {
     $validated = Validator::make($request->all(), [
-        'url' => 'required|string|url',
-        'email' => 'required|string|string',
-        'password' => 'required|string',
+        'name' => 'required|string|unique:teams',
     ]);
- 
     // The blog post is valid...
  
     if($validated->fails()) {
-      return redirect("/passwd")->withErrors($validated);
+      return redirect("/team")->withErrors($validated);
   }
 
   if ($validated) {
 
     // on récupere l'id du user connecté 
     $id = Auth::id();
-    $url = $validated->validated()['url'];
-    $mail = $validated->validated()['email'];
-    $passwd = Crypt::encryptString($validated->validated()['password']);
+    $name = $validated->validated()['name'];
 
-    Password::create(['site'=>$url,'login'=>$mail,'password'=>$passwd,'user_id'=>$id]);
-    // $file = json_encode($validated->validated());
-    // Storage::put(time().'.json', $file); 
-
+    $team = Team::create(['name'=>$name]); 
+    $user = User::find($id);
+    $user->teams()->syncWithoutDetaching([$team->id]);
     return redirect("/");
   }
     

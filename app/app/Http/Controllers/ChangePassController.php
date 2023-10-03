@@ -12,41 +12,34 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
  
-class PostController extends Controller
+class ChangePassController extends Controller
 {
 
  
-    /**
- * Store a new blog post.
- */
-public function store(Request $request): RedirectResponse
+public function store(Request $request, int $idpass): RedirectResponse
 {
     $validated = Validator::make($request->all(), [
-        'url' => 'required|string|url',
-        'email' => 'required|string|string',
         'password' => 'required|string',
     ]);
  
     // The blog post is valid...
  
     if($validated->fails()) {
-      return redirect("/passwd")->withErrors($validated);
+      return redirect("/changepasswd")->withErrors($validated);
   }
 
   if ($validated) {
 
     // on récupere l'id du user connecté 
-    $id = Auth::id();
-    $url = $validated->validated()['url'];
-    $mail = $validated->validated()['email'];
     $passwd = Crypt::encryptString($validated->validated()['password']);
 
-    Password::create(['site'=>$url,'login'=>$mail,'password'=>$passwd,'user_id'=>$id]);
-    // $file = json_encode($validated->validated());
-    // Storage::put(time().'.json', $file); 
-
+    Password::where('id', $idpass)->update(['password'=>$passwd]);
     return redirect("/");
   }
     
+}
+
+public function getID($idpass){
+    return view('changepasswd', ['idpass'=>$idpass]);
 }
 }

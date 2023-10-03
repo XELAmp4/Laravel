@@ -13,5 +13,6 @@ class Password extends Model
     public function user(): BelongsTo{
         return $this->belongsTo(User::class);
     }
+    protected $fillable = ['site', 'login', 'password', 'user_id'];
 }
 

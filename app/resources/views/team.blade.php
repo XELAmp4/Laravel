@@ -16,30 +16,18 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Nouveau mot de passe</h1>
-        <form action="./PostController" method="post">
+        <h1>Créer une team</h1>
+        <form action="{{ route('TeamController') }}" method="post">
         @csrf
 
-            <label for="url">Url du site:</label>
-            <input type="url" name='url' class="@error('url') is-invalid @enderror" required>
+            <label for="name">Nom de la team:</label>
+            <input type="name" name='name' class="@error('name') is-invalid @enderror" required>
 
-            <label for="email">Login:</label>
-            <input type="text" name='email' class="@error('email') is-invalid @enderror" required>
-
-            <label for="password">Mot de passe:</label>
-            <input type="password" name='password' class="@error('password') is-invalid @enderror" required>
-
-            <input type="submit" value="Enregistrer le mot de passe" />
+            <input type="submit" value="Créer la team" />
         </form>
 
         @if ($errors->any())
-            @error('url')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            @error('email')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            @error('password')
+            @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         @endif
