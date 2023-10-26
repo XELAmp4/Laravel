@@ -39,11 +39,19 @@ Route::get('/team', function () {
     return view('team');
 })->name('team');
 
+Route::get('/jointeam', function () {
+    return view('joinTeam');
+})->name('jointeam');
+
 Route::post('/PostController', [PostController::class, 'store'])->name('PostController');
 
 Route::post('/TeamController', [TeamController::class, 'store'])->name('TeamController');
 
+Route::post('/JoinTeamController', [TeamController::class, 'joinTeam'])->name('JoinTeamController');
+
+
 Route::get('/ListingController', [ListingController::class, 'listing'])->name('ListingController');
+
 
 Route::get('/ChangePassController/{idpass}', [ChangePassController::class, 'getID'])->name('ChangePassControllerID');
 

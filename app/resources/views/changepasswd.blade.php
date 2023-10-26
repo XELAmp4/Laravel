@@ -20,7 +20,6 @@
 
         <form action="{{ route('ChangePassController', $idpass) }}" method="POST">
         @csrf
-        @method('POST')
             <label for="password">Nouveau mot de passe:</label>
             <input type="password" name='password' class="@error('password') is-invalid @enderror" required>
 
