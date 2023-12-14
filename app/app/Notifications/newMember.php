@@ -28,7 +28,7 @@ class newMember extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -37,8 +37,11 @@ class newMember extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line($this->member." vient de rejoindre la team '".$this->team."'")
-                    ->action('Notification Action', url('/'));
+
+            ->line(__('notification.new_member'))
+            ->line($this->member." ".__('notification.join_the_team')." '".$this->team."' ".__('notification.prefix_date')." ".date("H:i:s"));
+
+
     }
 
     /**
@@ -49,7 +52,10 @@ class newMember extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'new_user' => $this->member,
+            'team' => $this->team,
+            'date' => date("j, n, Y"),
+            'hour' => date("H:i:s"),
         ];
     }
 }

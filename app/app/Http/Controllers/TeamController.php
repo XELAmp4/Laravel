@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use App\Notifications\newMember;
- 
+use phpDocumentor\Reflection\PseudoTypes\True_;
+
 class TeamController extends Controller
 {
 
@@ -60,10 +61,34 @@ public function joinTeam(Request $request): RedirectResponse
     $team = Team::where('name',$name)->first();
     $user = User::find($id);
     $user->teams()->syncWithoutDetaching([$team->id]);
+
+    // notifications
+    $users = $this->teamMembers($name);
     $notif = new newMember($user->name,$team->name);
-    $user->notify($notif);
+    foreach ($users as $key => $userNotified){
+        $userNotified->notify($notif);
+    }
     return redirect("/");
   }
     
 }
+
+/**
+ * Récuperer les utilisateurs d'une team
+ *
+ * @param String   $teamName  Nom de la team dont on veux connaitre les membres
+ * 
+ * @return Array Tableau des utilisateurs de la team
+ */ 
+public function teamMembers($teamName){
+  $value = Team::where('name', $teamName)->get();
+  $teamId = $value[0]->id;
+  $dataUsers = Team::find($teamId)->users;
+  $users= [];
+  foreach ($dataUsers as $key => $user) {
+    array_push($users,$user);
+  }
+  return $users;
+}
+
 }
