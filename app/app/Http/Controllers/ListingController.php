@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 
-
-
-
 class ListingController extends Controller
 {
     public function listing(): View
@@ -23,5 +20,12 @@ class ListingController extends Controller
             $value[$key]->password = Crypt::decryptString($val->password);
         }
         return view('listing', ['passwords'=>$value]);
+    }
+
+    public function listingTeam(): View
+    {
+        $teams = Auth::user()->teams;
+        
+        return view('listingTeam', ['teams'=>$teams]);
     }
 }

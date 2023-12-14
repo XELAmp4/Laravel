@@ -17,7 +17,7 @@
     </head>
     <body class="antialiased">
         <h1>Nouveau mot de passe</h1>
-        <form action="./PostController" method="post">
+        <form action="{{ route('PostController') }}" method="post">
         @csrf
 
             <label for="url">Url du site:</label>

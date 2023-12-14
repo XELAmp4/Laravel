@@ -16,35 +16,22 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Modifier le mot de passe</h1>
-
-        <form action="{{ route('ChangePassController', $idpass) }}" method="POST">
+        <h1>Rejoindre une team</h1>
+        <form action="{{ route('JoinTeamController') }}" method="post">
         @csrf
-            <label for="password">Nouveau mot de passe:</label>
-            <input type="password" name='password' class="@error('password') is-invalid @enderror">
 
-            @if($teams->isNotEmpty())
-                <fieldset>
-                    <legend>Partager avec mes teams:</legend>
-                    @foreach ($teams as $team)
-                        <div>
-                            <input type="checkbox" id="{{ $team->name }}" name="{{ $team->name }}" value="{{ $team->id }}" />
-                            <label for="{{ $team->name }}">{{ $team->name }}</label>
-                        </div>
-                    @endforeach
+            <label for="name">Nom de la team:</label>
+            <input type="text" name='name' class="@error('name') is-invalid @enderror" required>
 
-                </fieldset>
-            @endif
-
-            <input type="submit" value="Changer le mot de passe" />
+            <input type="submit" value="Rejoindre une team" />
         </form>
 
         @if ($errors->any())
-            @error('password')
+            @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         @endif
-
-
+        
+        
     </body>
 </html>

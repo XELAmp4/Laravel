@@ -31,19 +31,36 @@ Route::get('/listing', function () {
     return view('listing');
 })->name('listing');
 
+Route::get('/listingTeam', function () {
+    return view('listingTeam');
+})->name('listingTeam');
+
 Route::get('/changepasswd/{idpass}', function () {
     return view('changepasswd');
 })->name('changepasswd');
+
+Route::get('/changeTeamPwd', function () {
+    return view('changeTeamPwd');
+})->name('changeTeamPwd');
 
 Route::get('/team', function () {
     return view('team');
 })->name('team');
 
+Route::get('/jointeam', function () {
+    return view('joinTeam');
+})->name('jointeam');
+
 Route::post('/PostController', [PostController::class, 'store'])->name('PostController');
 
 Route::post('/TeamController', [TeamController::class, 'store'])->name('TeamController');
 
+Route::post('/JoinTeamController', [TeamController::class, 'joinTeam'])->name('JoinTeamController');
+
+
 Route::get('/ListingController', [ListingController::class, 'listing'])->name('ListingController');
+
+Route::get('/ListingControllerTeam', [ListingController::class, 'listingTeam'])->name('ListingControllerTeam');
 
 Route::get('/ChangePassController/{idpass}', [ChangePassController::class, 'getID'])->name('ChangePassControllerID');
 
