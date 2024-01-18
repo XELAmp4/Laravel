@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BasicController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,44 +20,27 @@ use App\Http\Controllers\ChangePassController   ;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BasicController::class, 'welcome'])->name('welcome');
 
-Route::get('/passwd', function () {
-    return view('passwd');
-})->name('passwd');
+Route::get('/passwd', [BasicController::class, 'passwd'])->name('passwd');
 
-Route::get('/listing', function () {
-    return view('listing');
-})->name('listing');
+Route::get('/listing', [BasicController::class, 'listing'])->name('listing');
 
-Route::get('/listingTeam', function () {
-    return view('listingTeam');
-})->name('listingTeam');
+Route::get('/listingTeam', [BasicController::class, 'listingTeam'])->name('listingTeam');
 
-Route::get('/changepasswd/{idpass}', function () {
-    return view('changepasswd');
-})->name('changepasswd');
+Route::get('/changepasswd/{idpass}', [BasicController::class, 'changepasswd'])->name('changepasswd');
 
-Route::get('/changeTeamPwd', function () {
-    return view('changeTeamPwd');
-})->name('changeTeamPwd');
+Route::get('/changeTeamPwd', [BasicController::class, 'changeTeamPwd'])->name('changeTeamPwd');
 
-Route::get('/team', function () {
-    return view('team');
-})->name('team');
+Route::get('/team', [BasicController::class, 'team'])->name('team');
 
-Route::get('/jointeam', function () {
-    return view('joinTeam');
-})->name('jointeam');
+Route::get('/jointeam', [BasicController::class, 'jointeam'])->name('jointeam');
 
 Route::post('/PostController', [PostController::class, 'store'])->name('PostController');
 
 Route::post('/TeamController', [TeamController::class, 'store'])->name('TeamController');
 
 Route::post('/JoinTeamController', [TeamController::class, 'joinTeam'])->name('JoinTeamController');
-
 
 Route::get('/ListingController', [ListingController::class, 'listing'])->name('ListingController');
 
@@ -66,9 +50,9 @@ Route::get('/ChangePassController/{idpass}', [ChangePassController::class, 'getI
 
 Route::post('/ChangePassController/{idpass}', [ChangePassController::class, 'store'])->name('ChangePassController');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [BasicController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
