@@ -42,4 +42,12 @@ return [
     'listing_team' => [
         'date' => 'Date de création',
     ],
+
+    'navbar' => [
+        'new_mdp' => 'Nouveau mot de passe',
+        'my_mdp' => 'Mes mots de passe',
+        'new_team' => 'Nouvelle team',
+        'join_team' => 'Rejoindre une team',
+        'my_teams' => 'Mes teams',
+    ],
 ];
